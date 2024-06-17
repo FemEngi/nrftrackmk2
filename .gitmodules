@@ -1,3 +1,6 @@
 [submodule "src/imu/fusion"]
 	path = src/imu/fusion
 	url = https://github.com/xioTechnologies/Fusion.git
+[submodule "Fusion"]
+	path = Fusion
+	url = https://github.com/xioTechnologies/Fusion.git
