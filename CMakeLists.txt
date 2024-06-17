@@ -7,4 +7,5 @@ project(gen2)
 
 FILE(GLOB_RECURSE app_sources src/*.c)
 target_sources(app PRIVATE ${app_sources})
-
+FILE(GLOB_RECURSE files fusion/Fusion/*.c)
+target_sources(app PRIVATE ${files})

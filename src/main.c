@@ -5,9 +5,14 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
+#include "imu/bmi160/bmi160.h"
 
 int main(void)
 {
-	printf("Hello World! %s\n", CONFIG_BOARD);
-	return 0;
+	printf("haii");
+	bmi160init();
+	while(true) {
+		bmi160loop();
+	}
 }

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "fusion.h": "c",
+        "bmi160.h": "c"
+    },
+    "nrf-connect.topdir": "e:\\toolchains\\v2.6.1"
+}
