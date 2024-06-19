@@ -6,13 +6,13 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "imu/bmi160/bmi160.h"
+#include "imu/bmi160/bmi160_fuse.h"
 
 int main(void)
 {
-	printf("haii");
-	bmi160init();
-	while(true) {
-		bmi160loop();
+	bmi_160_fusion_init();
+	while (1) {
+		bmi_160_fusion_loop();
+
 	}
 }
