@@ -6,13 +6,14 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "imu/bmi160/bmi160_fuse.h"
+#include "imu/sensor.h"
+
+
 
 int main(void)
 {
-	bmi_160_fusion_init();
+	init_fused_IMU();
 	while (1) {
-		bmi_160_fusion_loop();
-
+		read_fused_IMU();
 	}
 }

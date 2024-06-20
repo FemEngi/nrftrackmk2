@@ -1,0 +1,28 @@
+&pinctrl {
+    i2c0_default: i2c0_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 26)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 27)>;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 26)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 27)>;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c0 {
+    compatible = "nordic,nrf-twi";
+	status = "okay";
+    clock-frequency = <I2C_BITRATE_FAST>; /* Adjust bitrate if necessary */
+    bmi_270_imu: imu_bmi270@69 {
+        compatible = "bosch,bmi160";
+        reg = <0x69>; /* I2C address of the BMI160 */
+    };
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+};

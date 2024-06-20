@@ -149,7 +149,7 @@ void bmi_160_fusion_init() {
 
     // This loop should repeat each time new gyroscope data is available
 }
-void bmi_160_fusion_loop() {
+void bmi_160_fusion_loop(float *quat[4]) {
 	bmi160_get_sensor_data((BMI160_ACCEL_SEL | BMI160_GYRO_SEL), &bmi160_accel, &bmi160_gyro, &bmi160dev);
     
     // Acquire latest sensor data
@@ -160,7 +160,7 @@ void bmi_160_fusion_loop() {
     // Apply calibration
     gyroscope = FusionCalibrationInertial(gyroscope, gyroscopeMisalignment, gyroscopeSensitivity, gyroscopeOffset);
     accelerometer = FusionCalibrationInertial(accelerometer, accelerometerMisalignment, accelerometerSensitivity, accelerometerOffset);
-
+    
     // Update gyroscope offset correction algorithm
     gyroscope = FusionOffsetUpdate(&offset, gyroscope);
 
@@ -173,10 +173,14 @@ void bmi_160_fusion_loop() {
     FusionAhrsUpdateNoMagnetometer(&ahrs, gyroscope, accelerometer, deltaTime);
 
     // Print algorithm outputs
-    const FusionEuler euler = FusionQuaternionToEuler(FusionAhrsGetQuaternion(&ahrs));
+    const FusionQuaternion bmiquat = FusionAhrsGetQuaternion(&ahrs);
+    const FusionEuler euler = FusionQuaternionToEuler(bmiquat);
     const FusionVector earth = FusionAhrsGetEarthAcceleration(&ahrs);
 
-    printf("Roll %0.1f, Pitch %0.1f, Yaw %0.1f, X %0.1f, Y %0.1f, Z %0.1f\n",
+    // quat = [quat]
+
+    printf("Roll %4.1lf, Pitch %4.1lf, Yaw %4.1lf, X %4.1lf, Y %4.1lf, Z %4.1lf, dT %4.6lf\n",
             euler.angle.roll, euler.angle.pitch, euler.angle.yaw,
-            earth.axis.x, earth.axis.y, earth.axis.z);
+            earth.axis.x, earth.axis.y, earth.axis.z,
+            deltaTime);
 }
